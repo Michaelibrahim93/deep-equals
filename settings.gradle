@@ -1,0 +1,3 @@
+include ':deep-equals-lib'
+include ':app'
+rootProject.name = "DeepEqualsLibrary"
