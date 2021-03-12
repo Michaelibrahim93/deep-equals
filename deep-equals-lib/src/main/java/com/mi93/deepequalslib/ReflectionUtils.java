@@ -6,6 +6,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Map;
 
 class ReflectionUtils {
     static void setAllDeclaredFields(Class<?> aClass, ArrayList<Field> fields) {
@@ -17,6 +18,10 @@ class ReflectionUtils {
 
     static boolean isCollectionType(Object object) {
         return object instanceof Collection;
+    }
+
+    static boolean isMapType(Object object) {
+        return object instanceof Map;
     }
 
     static boolean isPrimitiveType(Class<?> type) {
