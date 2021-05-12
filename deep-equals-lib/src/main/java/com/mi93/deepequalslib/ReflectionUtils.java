@@ -28,10 +28,12 @@ class ReflectionUtils {
         return type.isPrimitive() || type.equals(Date.class)
                 || type.equals(String.class) || type.equals(Long.class)
                 || type.equals(Double.class) || type.equals(Float.class)
-                || type.equals(Integer.class) || type.equals(Boolean.class);
+                || type.equals(Integer.class) || type.equals(Boolean.class)
+                || type.equals(Byte.class) || type.equals(Short.class)
+                || type.equals(Character.class);
     }
 
-    static Object getValue(Field field, Class aClass, Object o) {
+    static<T> Object getValue(Field field, Class<T> aClass, Object o) {
         try {
             field.setAccessible(true);
             Object value = field.get(o);

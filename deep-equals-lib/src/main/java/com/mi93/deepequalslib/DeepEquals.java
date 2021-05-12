@@ -28,6 +28,8 @@ public class DeepEquals {
             return collectionEquals((Collection) o1, (Collection) o2);
         else if (isMapType(o1))
             return mapEquals((Map) o1, (Map) o2);
+        else if (o2.getClass().isArray())
+            return ArraysDeepEquals.arrayDeepEquals(o1, o2);
 
         ArrayList<Field> fields = new ArrayList<>();
         ReflectionUtils.setAllDeclaredFields(o1.getClass(), fields);
@@ -39,10 +41,7 @@ public class DeepEquals {
 
             if (o1FieldValue == null && o2FieldValue == null || Modifier.isStatic(field.getModifiers()))
                 continue;
-            else if (field.getType().isArray()) {
-                if (!ArraysDeepEquals.arrayDeepEquals(o1FieldValue, o2FieldValue))
-                    return false;
-            } else if (!deepEquals(o1FieldValue, o2FieldValue))
+            else if (!deepEquals(o1FieldValue, o2FieldValue))
                 return false;
         }
         return true;

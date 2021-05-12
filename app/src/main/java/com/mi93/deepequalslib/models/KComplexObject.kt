@@ -1,12 +1,15 @@
 package com.mi93.deepequalslib.models
 
+import java.util.*
+
 data class KComplexObject(
     val id: Long,
     val simpleObject: KSimpleObject,
     val list: List<KSimpleObject>,
     val map: Map<Long, KSimpleObject>,
     val oArr: Array<KSimpleObject>,
-    val iArr: Array<Int>
+    val iArr: Array<Int>,
+    val date: Date
 ) {
     override fun equals(other: Any?): Boolean {
         if (other !is KComplexObject) return false

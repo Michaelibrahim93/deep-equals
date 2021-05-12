@@ -1,4 +1,4 @@
-package com.mi93.deepequalslib
+ package com.mi93.deepequalslib
 
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
@@ -51,7 +51,8 @@ class MainActivity : AppCompatActivity() {
                 (num + 3).toLong() to createSimpleObject(num + 3)
             ),
             arrayOf(createSimpleObject(num + 1), createSimpleObject(num + 2)),
-            arrayOf(num, num+1, num+2)
+            arrayOf(num, num+1, num+2),
+            Date(num.toLong())
         )
     }
 
