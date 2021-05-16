@@ -3,14 +3,12 @@
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.mi93.deepequalslib.models.JComplexObject
-import com.mi93.deepequalslib.models.JSimpleObject
-import com.mi93.deepequalslib.models.KComplexObject
-import com.mi93.deepequalslib.models.KSimpleObject
+import com.mi93.deepequalslib.models.*
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
+import kotlin.random.Random
 
-class MainActivity : AppCompatActivity() {
+ class MainActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         val object1_2 = createComplexObject(1)
         val object2_1 = createComplexObject(2)
         return StringBuilder()
+            .append("generateDeepEqualsString\n")
             .append("deepEquals(object1_1, object1_2) ").append(DeepEquals.deepEquals(object1_1, object1_2))
             .append("\n")
             .append("deepEquals(object1_1, object2_1) ").append(DeepEquals.deepEquals(object1_1, object2_1))
@@ -35,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         val object1_2 = createJComplexObject(1)
         val object2_1 = createJComplexObject(2)
         return StringBuilder()
+            .append("generateJDeepEqualsString\n")
             .append("deepEquals(object1_1, object1_2) J: ").append(DeepEquals.deepEquals(object1_1, object1_2))
             .append("\n")
             .append("deepEquals(object1_1, object2_1) J: ").append(DeepEquals.deepEquals(object1_1, object2_1))
@@ -61,7 +61,8 @@ class MainActivity : AppCompatActivity() {
             num.toString(),
             num.toDouble(),
             num,
-            num.toFloat()
+            num.toFloat(),
+            Random.nextFloat()
         )
     }
 
@@ -76,7 +77,8 @@ class MainActivity : AppCompatActivity() {
                 (num + 3).toLong() to createJSimpleObject(num + 3)
             ),
             arrayOf(createJSimpleObject(num + 1), createJSimpleObject(num + 2)),
-            intArrayOf(num, num+1, num+2)
+            intArrayOf(num, num+1, num+2),
+            JUser(1, Random.nextFloat())
         )
     }
 

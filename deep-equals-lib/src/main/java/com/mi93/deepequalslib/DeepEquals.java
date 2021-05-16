@@ -1,5 +1,8 @@
 package com.mi93.deepequalslib;
 
+import com.mi93.deepequalslib.annotations.IgnoreDeepEquals;
+import com.mi93.deepequalslib.annotations.ShallowEquals;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -13,6 +16,13 @@ import static com.mi93.deepequalslib.ReflectionUtils.isCollectionType;
 import static com.mi93.deepequalslib.ReflectionUtils.isMapType;
 import static com.mi93.deepequalslib.ReflectionUtils.isPrimitiveType;
 
+/**
+ * DeepEquals is responsible for check if every non-static field are equals
+ *
+ * @author  Michael Ibrahim
+ * @version 1.0
+ * @since   2021-5-15
+ */
 @SuppressWarnings("ALL")
 public class DeepEquals {
     public static boolean deepEquals(Object o1, Object o2) {
@@ -39,8 +49,14 @@ public class DeepEquals {
             Object o1FieldValue = getValue(field, o1.getClass(), o1);
             Object o2FieldValue = getValue(field, o2.getClass(), o2);
 
-            if (o1FieldValue == null && o2FieldValue == null || Modifier.isStatic(field.getModifiers()))
+            if (o1FieldValue == null && o2FieldValue == null
+                    || Modifier.isStatic(field.getModifiers())
+                    || field.isAnnotationPresent(IgnoreDeepEquals.class))
                 continue;
+            else if (field.isAnnotationPresent(ShallowEquals.class)) {
+                if (!Utils.shallowEquals(o1FieldValue, o2FieldValue, true))
+                    return false;
+            }
             else if (!deepEquals(o1FieldValue, o2FieldValue))
                 return false;
         }
